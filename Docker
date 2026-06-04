@@ -1,0 +1,13 @@
+# Installing Docker on Ubuntu
+Sudo apt update && sudo apt upgrade -y
+sudo apt install apt-transport-https ca-certificates curl software-properties-common -y # installing required dependencieis
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker.gpg # Add docker's official GPG key and converts it to ASCII and then save key in the user dir for secure APT repoverification
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
+  | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null    # Add the docker APT repo
+sudo apt-get update # Update package index
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo usermod -aG docker $USER # add your docker user to the docker group
+docker --version
+sudo docker run hello-world # validate installation
